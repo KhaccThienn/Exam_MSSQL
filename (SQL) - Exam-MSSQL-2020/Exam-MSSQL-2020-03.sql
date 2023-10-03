@@ -213,6 +213,7 @@ UPDATE ClassRoom SET TotalStudent = (SELECT COUNT(*) FROM Student ST WHERE Class
 DELETE FROM ClassRoom WHERE YEAR(StartDate) < 2020 AND (
 	SELECT COUNT(*) as TotalStudent FROM Student ST WHERE ClassRoom.Id = ST.ClassId
 ) = 0
+GO
 
 /*
 	1.	View v_getStudentInfo thực hiện lấy ra danh sách Student gồm: Id, Name, Email, Phone, Address, Gender, BirthDay, ClassName, MarksAvg, Trong đó cột MarksAvg hiển thị như sau:

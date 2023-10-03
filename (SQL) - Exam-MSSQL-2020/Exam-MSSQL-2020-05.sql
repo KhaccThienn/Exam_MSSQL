@@ -182,8 +182,8 @@ AS
 		WHEN 0 THEN N'Nữ'
 		WHEN 1 THEN N'Nam'
 		ELSE N'Khác'
-	END AS gender
-	, emp.BirthDay, (YEAR(GETDATE()) - YEAR(emp.BirthDay)) AS Age,
+	END AS gender, 
+	emp.BirthDay, (YEAR(GETDATE()) - YEAR(emp.BirthDay)) AS Age,
 	dp.Name as DepartmentName, lvls.Name as LevelName
 	FROM Employee emp 
 	INNER JOIN Department dp ON emp.DepartmentId = dp.Id
@@ -304,8 +304,8 @@ BEGIN
 	INNER JOIN Department dp ON emp.DepartmentId = dp.Id
 	INNER JOIN Levels lvls ON emp.LevelId = lvls.Id
 	ORDER BY emp.id
-	OFFSET @limit * (@page - 1)
-	ROWS FETCH NEXT @limit ROWS ONLY
+	OFFSET @limit * (@page - 1)ROWS 
+	FETCH NEXT @limit ROWS ONLY
 END
 GO
 

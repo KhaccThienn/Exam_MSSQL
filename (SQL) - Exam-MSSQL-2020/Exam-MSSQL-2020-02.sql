@@ -151,7 +151,8 @@ GO
 */
 
 /*
-	1.	Lấy ra danh sách Book có sắp xếp giảm dần theo Price gồm các cột sau: Id, Name, Price, Status, CategoryName, AuthorName, CreatedDate
+	1.	Lấy ra danh sách Book có sắp xếp giảm dần theo Price gồm các cột sau: 
+	Id, Name, Price, Status, CategoryName, AuthorName, CreatedDate
 */
 SELECT bk.Id, bk.Name, price, bk.Status, ct.Name as Categoryname, at.Name as Authorname, CreatedDate
 FROM Book bk
@@ -173,15 +174,16 @@ GROUP BY c.id, c.name, c.Status
 GO
 
 /*
-	3.	Truy vấn danh sách Customer gồm: Id, Name, Email, Phone, Address, CreatedDate, Gender, BirthDay, Age (Age là cột suy ra từ BirthDay, Gender nếu = 0 là Nam, 1 là Nữ,2 là khác )
+	3.	Truy vấn danh sách Customer gồm: Id, Name, Email, Phone, Address, CreatedDate, Gender, BirthDay, Age 
+	(Age là cột suy ra từ BirthDay, Gender nếu = 0 là Nam, 1 là Nữ,2 là khác )
 */
 SELECT id, name, email, phone, Address, CreatedDate, 
 CASE Gender 
 	WHEN 0 THEN 'Nam' 
 	WHEN 1 THEN 'Nu' 
 	WHEN 2 THEN 'Khac'
-END AS Gender, 
-BirthDay, (Year(GETDATE()) - YEAR(BirthDay)) AS age
+END AS Gender, BirthDay, 
+(Year(GETDATE()) - YEAR(BirthDay)) AS age
 FROM Customer 
 GO
 
@@ -266,7 +268,9 @@ EXEC addBookInfo N'Jujutsu Kaisen', 1, 250000, 4, 4
 GO
 
 /*
-	2.	Thủ tục getTicketByCustomerId hiển thị danh sách đơn hàng của khách hàng theo Id khách hàng gồm: Id, TicketDate, Status, TotalAmount (Trong đó cột Status nếu =0 Chưa trả, = 1  Đã trả, = 2 Quá hạn, 3 đã hủy ), Khi gọi thủ tục truyền vào id cuả khách hàng
+	2.	Thủ tục getTicketByCustomerId hiển thị danh sách đơn hàng của khách hàng theo Id khách hàng gồm: 
+	Id, TicketDate, Status, TotalAmount (Trong đó cột Status nếu =0 Chưa trả, = 1  Đã trả, = 2 Quá hạn, 3 đã hủy ),
+	 Khi gọi thủ tục truyền vào id cuả khách hàng
 */
 CREATE PROC getTicketByCustomerId 
 	@CustomerId INT 
@@ -293,7 +297,8 @@ EXEC getTicketByCustomerId 1
 GO
 
 /*
-	3.	Thủ tục getBookPaginate lấy ra danh sách sản phẩm có phân trang gồm: Id, Name, Price, Sale_price, Khi gọi thủ tuc truyền vào limit và page
+	3.	Thủ tục getBookPaginate lấy ra danh sách sản phẩm có phân trang gồm: 
+	Id, Name, Price, Sale_price, Khi gọi thủ tuc truyền vào limit và page
 */
 CREATE PROC getBookPaginate
 	@Limit INT,
@@ -311,7 +316,8 @@ EXEC GetBookPaginate 10, 2
 GO
 
 /*
-	1.	Tạo trigger tr_Check_total_book_author sao cho khi thêm Book nếu Author đang tham chiếu có tổng số sách > 5 thì không cho thêm mưới và thông báo “Tác giả này có số lượng sách đạt tới giới hạn 5 cuốn, vui long chọn tác giả khác” 
+	1.	Tạo trigger tr_Check_total_book_author sao cho khi thêm Book nếu Author đang tham chiếu có tổng số sách > 5 
+	thì không cho thêm mưới và thông báo “Tác giả này có số lượng sách đạt tới giới hạn 5 cuốn, vui long chọn tác giả khác” 
 */
 CREATE TRIGGER tr_Check_total_book_author
 ON Book
@@ -346,7 +352,7 @@ GO
 
 
 /*
-	2.	Tạo trigger tr_Update_TotalBook khi thêm mới Book thì cập nhật cột TotalBook rong bảng Author = tổng của Book theo AuthorId
+	2.	Tạo trigger tr_Update_TotalBook khi thêm mới Book thì cập nhật cột TotalBook trong bảng Author = tổng của Book theo AuthorId
 */
 CREATE TRIGGER tr_Update_TotalBook
 ON Book

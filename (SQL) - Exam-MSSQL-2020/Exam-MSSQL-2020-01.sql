@@ -147,7 +147,8 @@ GO
 
 
 /*
-	1.	Lấy ra danh sách sản phẩm có sắp xếp giảm dần theo Price gồm các cột sau: Id, Name, Price, SalePrice, Status, CategoryName, CreatedDate
+	1.	Lấy ra danh sách sản phẩm có sắp xếp giảm dần theo Price gồm các cột sau: 
+	Id, Name, Price, SalePrice, Status, CategoryName, CreatedDate
 */
 SELECT p.id, p.name, price, SalePrice, p.Status, c.Name as CategoryName, p.CreatedDate
 FROM Product p 
@@ -168,7 +169,8 @@ GROUP BY c.Id, c.Name, c.status
 GO
 
 /*
-	3.	Truy vấn danh sách Customer gồm: Id, Name, Email, Phone, Address, CreatedDate, Gender, BirthDay, Age (Age là cột suy ra từ BirthDay, Gender nếu = 0 là Nam, 1 là Nữ,2 là khác )
+	3.	Truy vấn danh sách Customer gồm: Id, Name, Email, Phone, Address, CreatedDate, Gender, BirthDay, 
+	Age (Age là cột suy ra từ BirthDay, Gender nếu = 0 là Nam, 1 là Nữ,2 là khác )
 */
 SELECT
 	c.id, c.name, c.Email, c.Phone, c.Address, c.CreatedDate,
@@ -207,7 +209,8 @@ SELECT * FROM v_getProductInfo
 GO
 
 /*
-	2.	View v_getOrderList hiển thị danh sách đơn hàng gồm: Id, OrderDate, Status, CusName, Email, Phone,TotalAmount ( Trong đó cột Status nếu = 0 Chưa duyệt, = 1  Đã duyệt,, = 2 Đã0thanh toán, = 3 Đã hủy ) 
+	2.	View v_getOrderList hiển thị danh sách đơn hàng gồm: Id, OrderDate, Status, CusName, Email, Phone,TotalAmount 
+	( Trong đó cột Status nếu = 0 Chưa duyệt, = 1  Đã duyệt, = 2 Đã thanh toán, = 3 Đã hủy ) 
 */
 CREATE VIEW v_getOrderList 
 AS
@@ -234,7 +237,8 @@ SELECT * FROM v_getOrderList
 GO
 
 /*
-	1.	Thủ tục addProductInfo thực hiện thêm mới Product, khi gọi thủ tục truyền đầy đủ các giá trị của bảng Product ( Trừ cột tự động tăng )
+	1.	Thủ tục addProductInfo thực hiện thêm mới Product, khi gọi thủ tục truyền đầy đủ các giá trị của bảng Product 
+	( Trừ cột tự động tăng )
 */
 CREATE PROC addProductInfo
 	@Name NVARCHAR(150),
@@ -250,7 +254,9 @@ END
 GO
 
 /*
-	2.	Thủ tục getOrderByCustomerId hiển thị danh sách đơn hàng của khách hàng theo Id khách hàng gồm: Id, OrderDate, Status, TotalAmount (Trong đó cột Status nếu = 0 Chưa duyệt, = 1  Đã duyệt,, = 2 Đã thanh toán, = 3 Đã hủy), Khi gọi thủ tục truyền vào id cảu khách hàng
+	2.	Thủ tục getOrderByCustomerId hiển thị danh sách đơn hàng của khách hàng theo Id khách hàng gồm: 
+	Id, OrderDate, Status, TotalAmount (Trong đó cột Status nếu = 0 Chưa duyệt, = 1  Đã duyệt,, = 2 Đã thanh toán, = 3 Đã hủy), 
+	Khi gọi thủ tục truyền vào id cảu khách hàng
 */
 CREATE PROC getOrderByCustomerId
 	@cusId INT
@@ -277,7 +283,8 @@ EXEC getOrderByCustomerId 1
 GO
 
 /*
-	3.	Thủ tục getProductPaginate lấy ra danh sách sản phẩm có phân trang gồm: Id, Name, Price, SalePrice, Khi gọi thủ tuc truyền vào limit và page
+	3.	Thủ tục getProductPaginate lấy ra danh sách sản phẩm có phân trang gồm: Id, Name, Price, SalePrice, 
+	Khi gọi thủ tuc truyền vào limit và page
 */
 CREATE PROC getProductPaginate
 	@Limit INT,
@@ -297,7 +304,8 @@ EXEC getProductPaginate 4, 2
 GO
 
 /*
-	1.	Tạo trigger tr_Check_Price_Value sao cho khi thêm hoặc sửa sản phẩm Product nếu nếu giá trị của cột Price > 2000000 thì tự động chuyển về 2000000 và in ra thông báo ‘Giá sản phẩm lớn nhất 20 triệu’ 
+	1.	Tạo trigger tr_Check_Price_Value sao cho khi thêm hoặc sửa sản phẩm Product
+	 nếu giá trị của cột Price > 2000000 thì tự động chuyển về 2000000 và in ra thông báo ‘Giá sản phẩm lớn nhất 20 triệu’ 
 */
 CREATE TRIGGER tr_Check_Price_Value 
 ON Product
@@ -316,7 +324,8 @@ EXEC addProductInfo N'TEST Trigger', 1, 200000000000, 200, 1
 GO
 
 /*
-	2.	Tạo trigger tr_check_Customer_Age khi thêm mới Customer nếu tuổi của khách hàng đó < 13 tuổi thì không cho thêm vào bảng và thông báo “Khách hàng này chưa đủ tuổi, tuổi phải >= 13
+	2.	Tạo trigger tr_check_Customer_Age khi thêm mới Customer nếu tuổi của khách hàng đó < 13 tuổi 
+	thì không cho thêm vào bảng và thông báo “Khách hàng này chưa đủ tuổi, tuổi phải >= 13
 */
 CREATE TRIGGER tr_check_Customer_Age 
 ON Customer
